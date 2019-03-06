@@ -16,7 +16,7 @@ amqp.connect('amqp://localhost', function(err, conn) {
     ch.assertExchange('hw3', 'direct', {durable: false});
     console.log("success assert exchange hw3");
   });
-  setTimeout(function() { conn.close(); process.exit(0) }, 500);
+  //setTimeout(function() { conn.close(); process.exit(0) }, 500);
 });
 app.listen(port,'0.0.0.0', () => {
     return console.log(`App listening on port ${port}!`);
