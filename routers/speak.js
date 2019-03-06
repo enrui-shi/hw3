@@ -14,8 +14,12 @@ router.post('/',jsonParser,function(req,res){
     data = req.body;
     msg = data.msg;
     key = data.key;
-    ch.publish('hw3', key, new Buffer(msg));
-    res.send(msg+" send to "+key);
+    amqp.connect('amqp://localhost', function(err, conn) {
+        conn.createChannel(function(err, ch) {
+            ch.publish('hw3', key, new Buffer(msg));
+            res.send(msg+" send to "+key);
+        });
+    });
 });
 
 //export this router to use in our index.js
