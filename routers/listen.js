@@ -18,7 +18,7 @@ router.post('/',jsonParser,function(req,res){
     amqp.connect('amqp://localhost', function(err, conn) {
         conn.createChannel(function(err, ch) {
             ch.assertQueue('', {exclusive: true}, function(err, q) {
-                console.log("waiting for massage comming in:")
+                console.log("waiting for massage comming to "+keys)
                 keys.forEach(function(e){
                     ch.bindQueue(q.queue, 'hw3', e);
                 });
