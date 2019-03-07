@@ -23,6 +23,7 @@ router.post('/',jsonParser,function(req,res){
                     ch.bindQueue(q.queue, 'hw3', e);
                 });
                 //wait for massage
+                ch.qos(1);
                 ch.consume(q.queue, function(msg) {
                     console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
                     res.json({"msg":msg.content.toString()});
