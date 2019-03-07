@@ -14,9 +14,6 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 router.post('/',jsonParser,function(req,res){
     data = req.body;
     keys = data.keys;
-    keys.forEach(function(e){
-        console.log(e);
-    });
 
     amqp.connect('amqp://localhost', function(err, conn) {
         conn.createChannel(function(err, ch) {

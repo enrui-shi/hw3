@@ -17,7 +17,9 @@ router.post('/',jsonParser,function(req,res){
     amqp.connect('amqp://localhost', function(err, conn) {
         conn.createChannel(function(err, ch) {
             ch.publish('hw3', key, new Buffer(msg));
-            res.send(msg+" send to "+key);
+            console.log(msg+" send to "+key);
+
+            //res.send(msg+" send to "+key);
         });
     });
 });
