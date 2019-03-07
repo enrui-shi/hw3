@@ -23,11 +23,12 @@ router.post('/',jsonParser,function(req,res){
                     ch.bindQueue(q.queue, 'hw3', e);
                 });
                 //wait for massage
-                ch.consume(q.queue, function(msg) {
-                    console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
-                    res.json({"msg":msg.content.toString()});
-                  });
             });
+            ch.consume(q.queue, function(msg) {
+                console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
+                res.json({"msg":msg.content.toString()});
+                });
+            
         });
     });
 
