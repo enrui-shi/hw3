@@ -28,7 +28,7 @@ router.post('/',jsonParser,function(req,res){
                 //wait for massage
                 ch.consume(q.queue, function(msg) {
                     console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
-                    res.json({"msg":msg.connect});
+                    res.json({"msg":msg.content});
                   }, {noAck: true});
             });
         });
