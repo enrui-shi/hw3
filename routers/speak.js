@@ -11,11 +11,12 @@ var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 router.post('/',jsonParser,function(req,res){
-    data = req.body;
-    msg = data.msg;
-    key = data.key;
+    
     amqp.connect('amqp://localhost', function(err, conn) {
         conn.createChannel(function(err, ch) {
+            data = req.body;
+            msg = data.msg;
+            key = data.key; 
             ch.publish('hw3', key, new Buffer(msg));
             console.log(msg+" send to "+key);
             res.json({'status':'OK'});

@@ -12,23 +12,22 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
 router.post('/',jsonParser,function(req,res){
-    data = req.body;
-    keys = data.keys;
 
     amqp.connect('amqp://localhost', function(err, conn) {
         conn.createChannel(function(err, ch) {
             ch.assertQueue('', {exclusive: true}, function(err, q) {
                 console.log("waiting for massage comming to "+keys)
+                data = req.body;
+                keys = data.keys;
                 keys.forEach(function(e){
                     ch.bindQueue(q.queue, 'hw3', e);
                 });
                 //wait for massage
+                ch.consume(q.queue, function(msg) {
+                    console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
+                    res.json({"msg":msg.content.toString()});
+                  });
             });
-            ch.consume(q.queue, function(msg) {
-                console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
-                res.json({"msg":msg.content.toString()});
-                });
-            
         });
     });
 
