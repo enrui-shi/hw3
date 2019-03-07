@@ -9,7 +9,7 @@ var listen = require('./routers/listen.js');
 var speak = require('./routers/speak.js');
 
 //add api
-app.use('/listen', listen);
+//app.use('/listen', listen);
 app.use('/speak', speak);
 amqp.connect('amqp://localhost', function(err, conn) {
   conn.createChannel(function(err, ch) {
