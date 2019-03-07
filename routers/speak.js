@@ -18,7 +18,7 @@ router.post('/',jsonParser,function(req,res){
         conn.createChannel(function(err, ch) {
             ch.publish('hw3', key, new Buffer(msg));
             console.log(msg+" send to "+key);
-
+            res.json({'status':'OK'});
             //res.send(msg+" send to "+key);
         });
     });
